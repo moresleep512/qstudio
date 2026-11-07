@@ -1,0 +1,26 @@
+[project]
+name = "qstudio"
+version = "0.1.0"
+description = "QStudio (Qlib Studio) — Modern PySide6 AI Quantitative Research Workstation for Microsoft Qlib"
+readme = "README.md"
+authors = [
+    { name = "moresleep512", email = "moresleep512@outlook.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=2.5.4",
+    "pandas>=3.1.1",
+    "pyqtgraph>=0.14.0",
+    "pyside6>=6.12.0",
+    "pyyaml>=6.0.3",
+]
+
+[project.scripts]
+qstudio = "qstudio:main"
+
+[tool.uv.build-backend]
+module-root = ""
+
+[build-system]
+requires = ["uv_build>=0.12.8,<0.13.0"]
+build-backend = "uv_build"
