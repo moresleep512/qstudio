@@ -5,7 +5,7 @@
 # Qlib Studio (`qstudio`)
 
 **Modern Desktop AI Quantitative Research Workstation for Microsoft Qlib**  
-*将微软 Qlib 从命令行与静态 Notebook 升级为现代桌面端 AI 量化投研 IDE*
+*将微软 Qlib 从命令行与静态 Notebook 封装为现代桌面端 个人 AI量化研究 IDE*
 
 [![Version](https://img.shields.io/badge/version-0.1.0-00E5FF?style=flat-square&logoColor=white)](pyproject.toml)
 [![Python](https://img.shields.io/badge/python-%3E%3D3.12-2962FF?style=flat-square&logo=python&logoColor=white)](pyproject.toml)
@@ -41,41 +41,46 @@
 ## 🖼️ 工作台界面预览
 
 ### 1. 投研工作台总览 (`Dashboard`)
+
 > 实时汇总最新策略核心风险收益指标（扣费后年化超额、信息比率 IR、最大回撤、截面 IC、ICIR、日度胜率），内置 4 套微软官方旗舰 Benchmark 模板一键启动。
-![Dashboard](assets/screenshots/01_dashboard.png)
+> ![Dashboard](assets/screenshots/01_dashboard.png)
 
 ### 2. 数据中心与特征行情浏览器 (`Data Hub & D.features`)
+
 > 可视化管理 `provider_uri` 与市场区域 (`REG_CN` / `REG_US`)，检索沪深 300 / 中证 500 成分股，实时绘制复权日 K 线、均线、成交量及任意 Qlib 表达式特征副图。
-![Data Hub](assets/screenshots/02_data_hub.png)
+> ![Data Hub](assets/screenshots/02_data_hub.png)
 
 ### 3. 因子挖掘实验室 (`Factor Lab & Alpha158/360`)
+
 > 内置完整 `Alpha158` 算子公式库与 `DataHandlerLP` 截面/时序预处理器开关，一键计算单因子每日 IC 序列、20 日均线、累积 RankIC 与五分位（Q1~Q5）分层净值。
-![Factor Lab](assets/screenshots/03_factor_lab.png)
+> ![Factor Lab](assets/screenshots/03_factor_lab.png)
 
 ### 4. 模型工坊与双向 YAML 编排器 (`Model Studio`)
+
 > 覆盖 `LightGBM`、`XGBoost`、`CatBoost`、`DoubleEnsemble`、`MLP`、`LSTM`、`ALSTM`、`Transformer`、`HIST` 九大主流模型，支持超参数矩阵编辑、实时 Loss 监控与 YAML 双向互转。
-![Model Studio](assets/screenshots/04_model_studio.png)
+> ![Model Studio](assets/screenshots/04_model_studio.png)
 
 ### 5. 绩效归因看板与实验同屏 PK (`TearSheet & Recorder`)
+
 > 交互式检视水下回撤、五分位收益、月度超额收益热力矩阵、最新截面 TopK 持仓调仓信号，以及多实验同屏净值叠加对比。
 
-| 绩效归因与月度热力看板 (`TearSheet`) | 多实验超额净值同屏 PK (`Recorder / MLflow`) |
-| :---: | :---: |
+| 绩效归因与月度热力看板 (`TearSheet`)                         | 多实验超额净值同屏 PK (`Recorder / MLflow`)                    |
+|:-------------------------------------------------:|:-----------------------------------------------------:|
 | ![TearSheet](assets/screenshots/06_tearsheet.png) | ![Experiments](assets/screenshots/07_experiments.png) |
 
 ---
 
 ## 🔗 Qlib 底层接口与模块映射
 
-| Qlib Studio 工作台 | 对应 Qlib 核心模块与 API | 核心功能说明 |
-| :--- | :--- | :--- |
-| **1. 投研总览 (`Dashboard`)** | `qlib.workflow.R`, `qlib.contrib.evaluate.risk_analysis` | 核心 KPI 看板、净值与回撤概览、官方 Benchmark 模板一键加载与训练 |
-| **2. 数据中心 (`Data Hub`)** | `qlib.init()`, `D.calendar()`, `D.instruments()`, `D.features()` | 二进制 `.bin` 数据源配置、成分股筛选、OHLCV K 线与复权算子提取 |
-| **3. 因子实验室 (`Factor Lab`)** | `qlib.data.ops`, `Alpha158`, `Alpha360`, `DataHandlerLP` | 公式化因子实时求值、`infer/learn_processors` 标准化、单因子 IC / 分层检验 |
-| **4. 模型工坊 (`Model Studio`)** | `qlib.contrib.model.*`, `DatasetH`, `init_instance_by_config` | 数据集时间段切分、9 大模型超参数动态配置、Epoch Loss 监控、双向 YAML 引擎 |
-| **5. 策略回测 (`Backtest`)** | `TopkDropoutStrategy`, `EnhancedIndexingStrategy`, `SimulatorExecutor` | `topk` / `n_drop` 轮动规则、涨跌停限制 `limit_threshold`、佣金与印花税敏感度测试 |
-| **6. 绩效归因 (`TearSheet`)** | `SignalRecord`, `SigAnaRecord`, `PortAnaRecord` | 扣费前后超额对比、水下最大回撤、月度收益热力矩阵、`positions_normal_1day` 持仓明细 |
-| **7. 实验记录 (`Recorder`)** | `qlib.workflow.recorder.QlibRecorder` (`mlruns`) | 多实验勾选同屏净值叠加 PK、风险指标排行榜、实验 YAML 快照回溯 |
+| Qlib Studio 工作台              | 对应 Qlib 核心模块与 API                                                      | 核心功能说明                                                     |
+|:---------------------------- |:---------------------------------------------------------------------- |:---------------------------------------------------------- |
+| **1. 投研总览 (`Dashboard`)**    | `qlib.workflow.R`, `qlib.contrib.evaluate.risk_analysis`               | 核心 KPI 看板、净值与回撤概览、官方 Benchmark 模板一键加载与训练                   |
+| **2. 数据中心 (`Data Hub`)**     | `qlib.init()`, `D.calendar()`, `D.instruments()`, `D.features()`       | 二进制 `.bin` 数据源配置、成分股筛选、OHLCV K 线与复权算子提取                    |
+| **3. 因子实验室 (`Factor Lab`)**  | `qlib.data.ops`, `Alpha158`, `Alpha360`, `DataHandlerLP`               | 公式化因子实时求值、`infer/learn_processors` 标准化、单因子 IC / 分层检验       |
+| **4. 模型工坊 (`Model Studio`)** | `qlib.contrib.model.*`, `DatasetH`, `init_instance_by_config`          | 数据集时间段切分、9 大模型超参数动态配置、Epoch Loss 监控、双向 YAML 引擎             |
+| **5. 策略回测 (`Backtest`)**     | `TopkDropoutStrategy`, `EnhancedIndexingStrategy`, `SimulatorExecutor` | `topk` / `n_drop` 轮动规则、涨跌停限制 `limit_threshold`、佣金与印花税敏感度测试 |
+| **6. 绩效归因 (`TearSheet`)**    | `SignalRecord`, `SigAnaRecord`, `PortAnaRecord`                        | 扣费前后超额对比、水下最大回撤、月度收益热力矩阵、`positions_normal_1day` 持仓明细      |
+| **7. 实验记录 (`Recorder`)**     | `qlib.workflow.recorder.QlibRecorder` (`mlruns`)                       | 多实验勾选同屏净值叠加 PK、风险指标排行榜、实验 YAML 快照回溯                        |
 
 ---
 
@@ -107,14 +112,17 @@ uv run python main.py
 如果你希望连接本地真实的 A 股 / 美股 Qlib 二进制行情库进行实盘级投研：
 
 1. **安装 `pyqlib`（如尚未安装）**：
+   
    ```powershell
    uv add pyqlib
    ```
 2. **获取 Qlib 二进制数据包（`.bin` 格式）**：
+   
    ```powershell
    # 使用 Qlib 官方脚本下载至默认路径 ~/.qlib/qlib_data/cn_data
    uv run python -m qlib.run.get_data qlib_data --target_dir ~/.qlib/qlib_data/cn_data --region cn
    ```
+   
    > 亦可在客户端 **「🗄️ 数据中心 (Data Hub)」** 点击右上角 **「⬇️ 下载官方数据包向导」** 获取社区每日更新数据源命令。
 3. **一键切换至真实引擎**：
    在 **「🗄️ 数据中心」** 选择你的 `provider_uri` 目录并点击 **「🔄 重新初始化 qlib.init()」**，顶部状态栏将自动变为绿色的 `LOCAL BIN READY` 状态。
